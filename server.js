@@ -8,9 +8,18 @@ const app = express();
 // Ensure we use environment port if available for deploying
 const PORT = process.env.PORT || 45678
 
-app.set("view engine", "ejs")
-app.use(express.static("public"))
-app.use(express.static("public/javascript"))
+// app.set("view engine", "ejs")
+// app.use(express.static("public"))
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+app.set("views", __dirname + "/views");
+app.set("view engine", "ejs");
+app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/public/javascript"))
 app.use(express.static("json"))
 app.use(cookieParser())
 app.use(layouts)
